@@ -1,0 +1,86 @@
+import sys
+
+
+def prim(graph, start):
+    # Initialize a set to store visited nodes
+    visited = set()
+    # Initialize a dictionary to store the minimum weight edge for each node
+    min_weights = {node: sys.maxsize for node in graph}
+    # Initialize a dictionary to store the parent node for each node
+    parent = {node: None for node in graph}
+
+    # Set the minimum weight of the start node to 0
+    min_weights[start] = 0
+
+    while len(visited) < len(graph):
+        # Find the node with the minimum weight edge from the set of unvisited nodes
+        min_weight = sys.maxsize
+        min_node = None
+
+        for node in graph:
+            if node not in visited and min_weights[node] < min_weight:
+                min_weight = min_weights[node]
+                min_node = node
+
+        # Add the current node to the visited set
+        visited.add(min_node)
+
+        # Update the minimum weights and parent nodes of the neighboring nodes
+        for neighbor, weight in graph[min_node].items():
+            if neighbor not in visited and weight < min_weights[neighbor]:
+                min_weights[neighbor] = weight
+                parent[neighbor] = min_node
+
+    return parent
+
+
+# Example usage:
+graph = {}
+
+# Take input from the user to build the graph
+num_vertices = int(input("Enter the number of vertices: "))
+for i in range(num_vertices):
+    vertex = input(f"Enter vertex {i + 1}: ")
+    num_edges = int(input(f"Enter the number of edges for {vertex}: "))
+    edges = {}
+    for j in range(num_edges):
+        neighbor, weight = input(f"Enter neighbor and weight for edge {j + 1}: ").split()
+        edges[neighbor] = int(weight)
+    graph[vertex] = edges
+
+start_node = input("Enter the starting node: ")
+
+# Call Prim's Algorithm
+minimum_spanning_tree = prim(graph, start_node)
+
+# Print the minimum spanning tree
+print("Minimum Spanning Tree:")
+for node, parent in minimum_spanning_tree.items():
+    if parent is not None:
+        print(f"{parent} - {node}")
+"""
+Enter the number of vertices: 5
+Enter vertex 1: A
+Enter the number of edges for A: 3
+Enter neighbor and weight for edge 1: B 2
+Enter neighbor and weight for edge 2: C 3
+Enter neighbor and weight for edge 3: D 1
+Enter vertex 2: B
+Enter the number of edges for B: 3
+Enter neighbor and weight for edge 1: A 2
+Enter neighbor and weight for edge 2: C 4
+Enter neighbor and weight for edge 3: E 3
+Enter vertex 3: C
+Enter the number of edges for C: 3
+Enter neighbor and weight for edge 1: A 3
+Enter neighbor and weight for edge 2: B 4
+Enter neighbor and weight for edge 3: D 2
+Enter vertex 4: D
+Enter the number of edges for D: 2
+Enter neighbor and weight for edge 1: A 1
+Enter neighbor and weight for edge 2: C 2
+Enter vertex 5: E
+Enter the number of edges for E: 1
+Enter neighbor and weight for edge 1: B 3
+Enter the starting node: A
+"""

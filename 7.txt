@@ -1,0 +1,48 @@
+# Define a list of hospitals with their information
+hospitals = [
+    {
+        "name": "City Hospital",
+        "location": "City A",
+        "specialties": ["Cardiology", "Orthopedics"]
+    },
+    {
+        "name": "General Hospital",
+        "location": "City B",
+        "specialties": ["Pediatrics", "Dermatology"]
+    },
+    {
+        "name": "Community Medical Center",
+        "location": "City C",
+        "specialties": ["Oncology", "Neurology"]
+    },
+    # Add more hospitals as needed
+]
+
+# Define a function to ask questions and provide recommendations
+def find_hospitals():
+    print("Welcome to the Hospital Finder!")
+    
+    # Ask for the medical condition
+    condition = input("What medical condition are you experiencing? ")
+    
+    # Ask for the location
+    location = input("Where are you located? ")
+    
+    # Find hospitals matching the condition and location
+    matching_hospitals = []
+    for hospital in hospitals:
+        if condition in hospital["specialties"] and location.lower() == hospital["location"].lower():
+            matching_hospitals.append(hospital)
+    
+    # Display recommendations
+    if len(matching_hospitals) > 0:
+        print("Based on your input, we recommend the following hospitals:")
+        for hospital in matching_hospitals:
+            print("- Name: " + hospital["name"])
+            print("  Location: " + hospital["location"])
+            print("  Specialties: " + ", ".join(hospital["specialties"]))
+    else:
+        print("Sorry, we couldn't find any hospitals matching your criteria.")
+    
+# Call the function to start the expert system
+find_hospitals()

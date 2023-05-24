@@ -1,0 +1,12 @@
+Installation Steps :
+2. #sudo grep -c "svm\|vmx" /proc/cpuinfo
+3. #sudo apt-get install qemu-kvm libvirt-bin bridge-utils virt-manager
+4. #sudoadduserrait
+#sudoadduserraitlibvirtd
+5. After running this command, log out and log back in as rait
+6. Run following command after logging back in as rait and you should see anempty list
+of virtual machines. This indicates that everything is working correctly. #virsh -c
+qemu:///system list
+
+7. Open Virtual Machine Manager application and Create Virtual Machine #virt-
+manager
